@@ -1,2 +1,2 @@
-# tts-test-app
-Android test app for testing Text-to-speech stuff
+# Android-TextToSpeech-Example
+Android TextToSpeech Example

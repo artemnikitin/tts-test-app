@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TTS test app</string>
+    <string name="textfield_placeholder">Hello world!</string>
+    <string name="speak">Speak now</string>
+    <string name="file">Choose file</string>
+    <string name="locale">Choose locale</string>
+    <string name="locale_placeholder">en_US</string>
+</resources>
