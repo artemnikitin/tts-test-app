@@ -2,11 +2,15 @@ package com.artemnikitin.tts;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +26,6 @@ public class MainActivity extends Activity {
 
     private String TAG = "TTS-test";
     private EditText text;
-    private EditText locale;
     private TTSManager ttsManager = null;
 
     @Override
@@ -31,15 +34,18 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Locale[] locales = Locale.getAvailableLocales();
-        Log.d(TAG, Arrays.toString(locales));
+        Filter filter = new Filter(locales);
+        ArrayAdapter<Locale> adapter = new ArrayAdapter<>(this,
+                R.layout.support_simple_spinner_dropdown_item, filter.getListOfLocales());
 
         ttsManager = new TTSManager();
         ttsManager.init(this);
 
         text = (EditText) findViewById(R.id.input_text);
-        locale = (EditText) findViewById(R.id.locale);
         Button speakNowButton = (Button) findViewById(R.id.speak_now);
         Button chooseFileButton = (Button) findViewById(R.id.choose_file);
+        final Spinner langSelect = (Spinner) findViewById(R.id.spinner);
+        langSelect.setAdapter(adapter);
 
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +60,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 ttsManager.initQueue(text.getText().toString(),
-                        new Locale(locale.getText().toString()));
+                        new Locale(langSelect.getSelectedItem().toString()));
             }
         });
 

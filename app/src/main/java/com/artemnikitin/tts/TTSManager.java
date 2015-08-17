@@ -9,6 +9,7 @@ import java.util.Locale;
 
 public class TTSManager {
 
+    private String TAG = "TTS-test";
     private TextToSpeech mTts = null;
     private boolean isLoaded = false;
 
@@ -16,7 +17,7 @@ public class TTSManager {
         try {
             mTts = new TextToSpeech(context, onInitListener);
         } catch (Exception e) {
-            Log.e("", Arrays.toString(e.getStackTrace()));
+            Log.e(TAG, Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -40,7 +41,7 @@ public class TTSManager {
             mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
         else
-            Log.e("TTS-test", "TTS Not Initialized");
+            Log.e(TAG, "TTS Not Initialized");
     }
 
 }

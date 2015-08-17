@@ -24,15 +24,10 @@
         android:layout_height="wrap_content"
         android:text="@string/file" />
 
-    <EditText
-        android:id="@+id/locale"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:hint="@string/locale_placeholder"
-        android:minLines="2"
-        android:padding="10dp" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/speak_now"
