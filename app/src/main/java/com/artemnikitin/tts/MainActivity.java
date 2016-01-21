@@ -24,7 +24,7 @@ import ru.bartwell.exfilepicker.ExFilePickerParcelObject;
 
 public class MainActivity extends Activity {
 
-    private String TAG = "TTS-test";
+    private String TAG = "TTS-MainActivity";
     private EditText text;
     private TTSManager ttsManager = null;
 
@@ -33,17 +33,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Locale[] locales = Locale.getAvailableLocales();
-        Filter filter = new Filter(locales);
-        ArrayAdapter<Locale> adapter = new ArrayAdapter<>(this,
-                R.layout.support_simple_spinner_dropdown_item, filter.getListOfLocales());
-
         ttsManager = new TTSManager();
         ttsManager.init(this);
 
         text = (EditText) findViewById(R.id.input_text);
         Button speakNowButton = (Button) findViewById(R.id.speak_now);
         Button chooseFileButton = (Button) findViewById(R.id.choose_file);
+        ArrayAdapter<Locale> adapter = setListOfLanguages(ttsManager);
         final Spinner langSelect = (Spinner) findViewById(R.id.spinner);
         langSelect.setAdapter(adapter);
 
@@ -87,6 +83,19 @@ public class MainActivity extends Activity {
             }
             this.text.setText(text);
         }
+    }
+
+    private ArrayAdapter<Locale> setListOfLanguages(TTSManager ttsManager) {
+        Locale[] locales = Locale.getAvailableLocales();
+        Locale[] supported = ttsManager.getSupportedLanguages();
+        Filter filter;
+        if (supported.length > 0) {
+            filter = new Filter(supported);
+        } else {
+            filter = new Filter(locales);
+        }
+        return new ArrayAdapter<>(this,
+                R.layout.support_simple_spinner_dropdown_item, filter.getListOfLocales());
     }
 
 }
