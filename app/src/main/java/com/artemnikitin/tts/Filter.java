@@ -2,9 +2,11 @@ package com.artemnikitin.tts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 class Filter {
 
@@ -14,8 +16,10 @@ class Filter {
        this.locales = locales;
     }
 
-    public Locale[] getListOfLocales() {
-        return sort(filter(locales));
+    public List<String> getListOfLocales() {
+        List<String> res = processLocales(filter(locales));
+        Collections.sort(res);
+        return res;
     }
 
     private Locale[] filter(Locale[] locales) {
@@ -29,16 +33,12 @@ class Filter {
         return result.toArray(array);
     }
 
-    private Locale[] sort(Locale[] locales) {
-        Arrays.sort(locales, comparator);
-        return locales;
-    }
-
-    private Comparator<Locale> comparator = new Comparator<Locale>() {
-        @Override
-        public int compare(Locale lhs, Locale rhs) {
-            return lhs.toString().compareToIgnoreCase(rhs.toString());
+    private List<String> processLocales(Locale[] locales) {
+        List<String> result = new ArrayList<>(locales.length);
+        for (Locale loc : locales) {
+            result.add(loc.getDisplayLanguage() + " (" + loc.toString() + ")");
         }
-    };
+        return result;
+    }
 
 }

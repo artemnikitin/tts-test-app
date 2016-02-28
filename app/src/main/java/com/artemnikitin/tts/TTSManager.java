@@ -35,11 +35,11 @@ class TTSManager {
     private final TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
         @Override
         public void onInit(int status) {
-        if (status == TextToSpeech.SUCCESS) {
-            tts.setLanguage(Locale.US);
-            isLoaded = true;
-            spinner.setAdapter(setListOfLanguages());
-        }
+            if (status == TextToSpeech.SUCCESS) {
+                tts.setLanguage(Locale.US);
+                isLoaded = true;
+                spinner.setAdapter(setListOfLanguages());
+            }
         }
     };
 
@@ -64,7 +64,7 @@ class TTSManager {
             Log.e(TAG, "TTS Not Initialized");
     }
 
-    private ArrayAdapter<Locale> setListOfLanguages() {
+    private ArrayAdapter<String> setListOfLanguages() {
         Locale[] supported = getSupportedLanguages();
         Filter filter = new Filter(supported);
         return new ArrayAdapter<>(context,
@@ -78,7 +78,6 @@ class TTSManager {
                 Log.e(TAG, "Can't retrieve list of supported languages");
                 return new Locale[0];
             }
-            Log.d(TAG, "List of supported languages: " + lang.size());
             return lang.toArray(new Locale[lang.size()]);
         } else {
             List<Locale> result = new ArrayList<>();
