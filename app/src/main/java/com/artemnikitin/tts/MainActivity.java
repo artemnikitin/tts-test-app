@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 tts.initQueue(text.getText().toString(),
-                        new Locale(langSelect.getSelectedItem().toString()));
+                        processSelection(langSelect.getSelectedItem().toString()));
             }
         });
 
@@ -82,6 +82,16 @@ public class MainActivity extends Activity {
                         .show();
             }
             this.text.setText(text);
+        }
+    }
+
+    private Locale processSelection(String text) {
+        int first = text.indexOf("(");
+        if (first != -1) {
+            String loc = text.substring(first + 1, text.length());
+            return new Locale(loc);
+        } else {
+            return Locale.US;
         }
     }
 

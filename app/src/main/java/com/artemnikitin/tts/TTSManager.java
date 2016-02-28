@@ -58,6 +58,8 @@ class TTSManager {
                 } else {
                     tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
                 }
+            } else {
+                Log.e(TAG, "Can't play text = " + text + " for locale = " + locale.toString());
             }
         }
         else
