@@ -4,63 +4,92 @@ import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-public class TTSManager {
+class TTSManager {
 
-    private String TAG = "TTS-TTSManager";
-    private TextToSpeech mTts = null;
+    private final static int SDK = Build.VERSION.SDK_INT;
+    private final static String TAG = "TTS-TTSManager";
+    private TextToSpeech tts;
     private boolean isLoaded = false;
+    private Spinner spinner;
+    private Context context;
 
-    public void init(Context context) {
+    public void init(Context context, Spinner spinner) {
+        this.spinner = spinner;
+        this.context = context;
         try {
-            mTts = new TextToSpeech(context, onInitListener);
+            tts = new TextToSpeech(context, onInitListener);
         } catch (Exception e) {
             Log.e(TAG, Arrays.toString(e.getStackTrace()));
         }
     }
 
-    private TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
+    private final TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
         @Override
         public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            mTts.setLanguage(Locale.US);
+            tts.setLanguage(Locale.US);
             isLoaded = true;
+            spinner.setAdapter(setListOfLanguages());
         }
         }
     };
 
     public void shutDown() {
-        mTts.shutdown();
+        tts.shutdown();
     }
 
     public void initQueue(String text, Locale locale) {
         if (isLoaded && text != null && locale != null) {
-            int available = mTts.isLanguageAvailable(locale);
+            int available = tts.isLanguageAvailable(locale);
             if (available >= 0) {
-                mTts.setLanguage(locale);
-                mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                tts.setLanguage(locale);
+                tts.setSpeechRate(1.0f);
+                if (SDK >= 21) {
+                    tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "random string - 2d22332");
+                } else {
+                    tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
         }
         else
             Log.e(TAG, "TTS Not Initialized");
     }
 
-    public Locale[] getSupportedLanguages() {
-        int api = Build.VERSION.SDK_INT;
-        if (api >= 21) {
-            Set<Locale> lang = mTts.getAvailableLanguages();
+    private ArrayAdapter<Locale> setListOfLanguages() {
+        Locale[] supported = getSupportedLanguages();
+        Filter filter = new Filter(supported);
+        return new ArrayAdapter<>(context,
+                R.layout.support_simple_spinner_dropdown_item, filter.getListOfLocales());
+    }
+
+    private Locale[] getSupportedLanguages() {
+        if (SDK >= 21) {
+            Set<Locale> lang = tts.getAvailableLanguages();
             if (lang == null) {
                 Log.e(TAG, "Can't retrieve list of supported languages");
                 return new Locale[0];
             }
             Log.d(TAG, "List of supported languages: " + lang.size());
             return lang.toArray(new Locale[lang.size()]);
-        } else
-            return new Locale[0];
+        } else {
+            List<Locale> result = new ArrayList<>();
+            Locale[] locales = Locale.getAvailableLocales();
+            for (Locale loc : locales) {
+                if (tts.isLanguageAvailable(loc) >= 0) {
+                    result.add(loc);
+                }
+            }
+            return result.toArray(new Locale[result.size()]);
+        }
     }
 
 }
