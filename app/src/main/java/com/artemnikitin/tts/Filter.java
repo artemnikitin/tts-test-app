@@ -1,6 +1,8 @@
 package com.artemnikitin.tts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,7 +15,7 @@ class Filter {
     }
 
     public Locale[] getListOfLocales() {
-        return filter(locales);
+        return sort(filter(locales));
     }
 
     private Locale[] filter(Locale[] locales) {
@@ -27,6 +29,16 @@ class Filter {
         return result.toArray(array);
     }
 
+    private Locale[] sort(Locale[] locales) {
+        Arrays.sort(locales, comparator);
+        return locales;
+    }
 
+    private Comparator<Locale> comparator = new Comparator<Locale>() {
+        @Override
+        public int compare(Locale lhs, Locale rhs) {
+            return lhs.toString().compareToIgnoreCase(rhs.toString());
+        }
+    };
 
 }
