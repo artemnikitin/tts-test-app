@@ -17,6 +17,7 @@ import java.util.Locale;
 import okio.BufferedSource;
 import okio.Okio;
 import ru.bartwell.exfilepicker.ExFilePicker;
+import ru.bartwell.exfilepicker.ExFilePickerActivity;
 import ru.bartwell.exfilepicker.ExFilePickerParcelObject;
 
 public class MainActivity extends Activity {
@@ -43,9 +44,10 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),
-                        ru.bartwell.exfilepicker.ExFilePickerActivity.class);
+                        ExFilePickerActivity.class);
                 intent.putExtra(ExFilePicker.SET_ONLY_ONE_ITEM, true);
-                startActivityForResult(intent, 0);
+                intent.putExtra(ExFilePicker.DISABLE_NEW_FOLDER_BUTTON, true);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -67,7 +69,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null) {
+        if (data != null && requestCode == 1 && resultCode == Activity.RESULT_OK) {
             ExFilePickerParcelObject selectedFile = data.getParcelableExtra(
                     ExFilePickerParcelObject.class.getCanonicalName());
             File file = new File(selectedFile.path + selectedFile.names.get(0));
@@ -77,9 +79,8 @@ public class MainActivity extends Activity {
                 text = source.readUtf8();
                 source.close();
             } catch (IOException e) {
-                Log.d(TAG, "okio can't process file " + file.getAbsolutePath());
-                Toast.makeText(getApplicationContext(), "Can't process file", Toast.LENGTH_SHORT)
-                        .show();
+                Log.d(TAG, "Can't process file " + file.getAbsolutePath());
+                Toast.makeText(getApplicationContext(), "Can't process file", Toast.LENGTH_SHORT).show();
             }
             this.text.setText(text);
         }
