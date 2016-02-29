@@ -50,7 +50,7 @@ class TTSManager {
     public void initQueue(String text, Locale locale) {
         if (isLoaded && text != null && locale != null) {
             int available = tts.isLanguageAvailable(locale);
-            if (available >= 0) {
+            if (available >= TextToSpeech.LANG_AVAILABLE) {
                 tts.setLanguage(locale);
                 tts.setSpeechRate(1.0f);
                 if (SDK >= 21) {
