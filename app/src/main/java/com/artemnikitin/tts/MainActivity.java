@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
     }
 
     private Locale processSelection(String text) {
-        int first = text.indexOf("(");
+        int first = text.lastIndexOf("(");
         if (first != -1) {
             String loc = text.substring(first + 1, text.length());
             return new Locale(loc);

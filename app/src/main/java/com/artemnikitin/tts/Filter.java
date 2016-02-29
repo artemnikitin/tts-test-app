@@ -33,7 +33,7 @@ class Filter {
     private List<String> processLocales(Locale[] locales) {
         List<String> result = new ArrayList<>(locales.length);
         for (Locale loc : locales) {
-            result.add(loc.getDisplayLanguage() + " (" + loc.toString() + ")");
+            result.add(loc.getDisplayName() + " (" + loc.toString() + ")");
         }
         return result;
     }
