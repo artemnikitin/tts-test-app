@@ -47,7 +47,7 @@ class TTSManager {
         tts.shutdown();
     }
 
-    public void initQueue(String text, Locale locale) {
+    public void say(String text, Locale locale) {
         if (isLoaded && text != null && locale != null) {
             int available = tts.isLanguageAvailable(locale);
             if (available >= TextToSpeech.LANG_AVAILABLE) {

@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
         speakNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tts.initQueue(text.getText().toString(),
+                tts.say(text.getText().toString(),
                         processSelection(langSelect.getSelectedItem().toString()));
             }
         });
