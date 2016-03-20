@@ -63,8 +63,8 @@ public class MainActivity extends Activity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         tts.shutDown();
+        super.onDestroy();
     }
 
     @Override
