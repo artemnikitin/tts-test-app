@@ -2,8 +2,9 @@ apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.artemnikitin.tts"
@@ -13,13 +14,24 @@ android {
         versionName "1.0"
     }
 
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("KEYSTORE_PATH"))
+            storePassword System.getenv("KEYSTORE_PASS")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASS")
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
+
 }
 
 dependencies {

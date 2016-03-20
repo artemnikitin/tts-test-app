@@ -16,6 +16,21 @@
 #   public *;
 #}
 
+-keepattributes *Annotation*,Signature
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-dontwarn android.support.v4.**
+-dontwarn org.apache.http.entity.mime.**
+-dontwarn okio.**
+-dontwarn org.**
+-dontwarn com.google.**
+-dontnote
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
@@ -42,3 +57,7 @@
 # The official support library.
 -keep class android.support.** { *; }
 -keep interface android.support.** { *; }
+
+-dontskipnonpubliclibraryclassmembers
+
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,Headers,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod,GET
