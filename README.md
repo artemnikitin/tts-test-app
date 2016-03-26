@@ -6,7 +6,6 @@ It's recommended to use it on devices with Android 5 or higher, because in Andro
 App is available in Google Play https://play.google.com/store/apps/details?id=com.artemnikitin.tts
 
 ### Build
-Build it with
 ```
 ./gradlew clean build
 ```
