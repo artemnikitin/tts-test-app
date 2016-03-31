@@ -37,5 +37,5 @@ android {
 dependencies {
     compile 'com.squareup.okio:okio:1.5.0'
     compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'ru.bartwell:exfilepicker:1.8'
+    compile 'com.nbsp:library:1.08'
 }

@@ -19,11 +19,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="ru.bartwell.exfilepicker.ExFilePickerActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/ExFilePickerThemeLight" />
-
     </application>
 
 </manifest>

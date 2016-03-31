@@ -14,15 +14,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.nbsp.materialfilepicker.MaterialFilePicker;
+import com.nbsp.materialfilepicker.ui.FilePickerActivity;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
 import okio.BufferedSource;
 import okio.Okio;
-import ru.bartwell.exfilepicker.ExFilePicker;
-import ru.bartwell.exfilepicker.ExFilePickerActivity;
-import ru.bartwell.exfilepicker.ExFilePickerParcelObject;
 
 public class MainActivity extends Activity
         implements OnRequestPermissionsResultCallback {
@@ -54,11 +54,12 @@ public class MainActivity extends Activity
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{
                             Manifest.permission.READ_EXTERNAL_STORAGE}, READ_ACCESS);
                 } else {
-                    Intent intent = new Intent(getApplicationContext(),
-                            ExFilePickerActivity.class);
-                    intent.putExtra(ExFilePicker.SET_ONLY_ONE_ITEM, true);
-                    intent.putExtra(ExFilePicker.DISABLE_NEW_FOLDER_BUTTON, true);
-                    startActivityForResult(intent, 1);
+                    new MaterialFilePicker()
+                            .withActivity(MainActivity.this)
+                            .withRequestCode(111)
+                            .withFilterDirectories(false)
+                            .withHiddenFiles(true)
+                            .start();
                 }
             }
         });
@@ -81,10 +82,9 @@ public class MainActivity extends Activity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null && requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            ExFilePickerParcelObject selectedFile = data.getParcelableExtra(
-                    ExFilePickerParcelObject.class.getCanonicalName());
-            File file = new File(selectedFile.path + selectedFile.names.get(0));
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
+            File file = new File(filePath);
             String text = "";
             try {
                 BufferedSource source = Okio.buffer(Okio.source(file));
