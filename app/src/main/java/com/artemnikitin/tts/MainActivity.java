@@ -1,8 +1,12 @@
 package com.artemnikitin.tts;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +24,13 @@ import ru.bartwell.exfilepicker.ExFilePicker;
 import ru.bartwell.exfilepicker.ExFilePickerActivity;
 import ru.bartwell.exfilepicker.ExFilePickerParcelObject;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+        implements OnRequestPermissionsResultCallback {
 
     private final static String TAG = "TTS-MainActivity";
     private EditText text;
     private TTSManager tts;
+    private final static int READ_ACCESS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +49,17 @@ public class MainActivity extends Activity {
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),
-                        ExFilePickerActivity.class);
-                intent.putExtra(ExFilePicker.SET_ONLY_ONE_ITEM, true);
-                intent.putExtra(ExFilePicker.DISABLE_NEW_FOLDER_BUTTON, true);
-                startActivityForResult(intent, 1);
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                            Manifest.permission.READ_EXTERNAL_STORAGE}, READ_ACCESS);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(),
+                            ExFilePickerActivity.class);
+                    intent.putExtra(ExFilePicker.SET_ONLY_ONE_ITEM, true);
+                    intent.putExtra(ExFilePicker.DISABLE_NEW_FOLDER_BUTTON, true);
+                    startActivityForResult(intent, 1);
+                }
             }
         });
 
