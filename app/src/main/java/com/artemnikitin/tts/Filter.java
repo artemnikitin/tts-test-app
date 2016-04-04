@@ -10,7 +10,7 @@ class Filter {
     private final Locale[] locales;
 
     public Filter(Locale[] locales) {
-       this.locales = locales;
+        this.locales = locales;
     }
 
     public List<String> getListOfLocales() {

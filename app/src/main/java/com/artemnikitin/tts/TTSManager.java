@@ -16,21 +16,16 @@ import java.util.Set;
 class TTSManager {
 
     private final static int SDK = Build.VERSION.SDK_INT;
-    private final static String TAG = "TTS-TTSManager";
-    private TextToSpeech tts;
-    private boolean isLoaded = false;
-    private Spinner spinner;
-    private Context context;
 
-    public void init(Context context, Spinner spinner) {
-        this.spinner = spinner;
-        this.context = context;
-        try {
-            tts = new TextToSpeech(context, onInitListener);
-        } catch (Exception e) {
-            Log.e(TAG, Arrays.toString(e.getStackTrace()));
-        }
-    }
+    private final static String TAG = "TTS-TTSManager";
+
+    private TextToSpeech tts;
+
+    private boolean isLoaded = false;
+
+    private Spinner spinner;
+
+    private Context context;
 
     private final TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
         @Override
@@ -42,6 +37,16 @@ class TTSManager {
             }
         }
     };
+
+    public void init(Context context, Spinner spinner) {
+        this.spinner = spinner;
+        this.context = context;
+        try {
+            tts = new TextToSpeech(context, onInitListener);
+        } catch (Exception e) {
+            Log.e(TAG, Arrays.toString(e.getStackTrace()));
+        }
+    }
 
     public void shutDown() {
         tts.shutdown();
@@ -61,16 +66,16 @@ class TTSManager {
             } else {
                 Log.e(TAG, "Can't play text = " + text + " for locale = " + locale.toString());
             }
-        }
-        else
+        } else {
             Log.e(TAG, "TTS Not Initialized");
+        }
     }
 
     private ArrayAdapter<String> setListOfLanguages() {
         Locale[] supported = getSupportedLanguages();
         Filter filter = new Filter(supported);
-        return new ArrayAdapter<>(context,
-                R.layout.support_simple_spinner_dropdown_item, filter.getListOfLocales());
+        return new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item,
+                filter.getListOfLocales());
     }
 
     private Locale[] getSupportedLanguages() {
