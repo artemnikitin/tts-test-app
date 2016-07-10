@@ -26,15 +26,13 @@ public class MainActivityOnActivityResultTest {
 
     private EditText text;
 
-    private Button chooseFileButton;
-
     private Intent start;
 
     @Before
     public void setUp() {
         activity = Robolectric.setupActivity(MainActivity.class);
         text = (EditText) activity.findViewById(R.id.input_text);
-        chooseFileButton = (Button) activity.findViewById(R.id.choose_file);
+        Button chooseFileButton = (Button) activity.findViewById(R.id.choose_file);
         ShadowApplication application = shadowOf(RuntimeEnvironment.application);
         application.grantPermissions(Manifest.permission.READ_EXTERNAL_STORAGE);
         chooseFileButton.performClick();
