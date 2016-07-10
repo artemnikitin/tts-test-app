@@ -25,10 +25,9 @@ class Filter {
         }
         List<Locale> result = new ArrayList<>();
         for (Locale locale : locales) {
-            if (locale != null) {
-                if (locale.toString().contains("_") && locale.toString().length() == 5) {
-                    result.add(locale);
-                }
+            if (locale != null && locale.toString().contains("_")
+                    && locale.toString().length() == 5) {
+                result.add(locale);
             }
         }
         Locale[] array = new Locale[result.size()];
