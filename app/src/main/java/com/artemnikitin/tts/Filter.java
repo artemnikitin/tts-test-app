@@ -20,10 +20,15 @@ class Filter {
     }
 
     private Locale[] filter(Locale[] locales) {
+        if (locales == null) {
+            return new Locale[0];
+        }
         List<Locale> result = new ArrayList<>();
         for (Locale locale : locales) {
-            if (locale.toString().contains("_") && locale.toString().length() == 5) {
-                result.add(locale);
+            if (locale != null) {
+                if (locale.toString().contains("_") && locale.toString().length() == 5) {
+                    result.add(locale);
+                }
             }
         }
         Locale[] array = new Locale[result.size()];
