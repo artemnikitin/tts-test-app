@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 public class TtsManagerTest {
 
     @Mock
-    TextToSpeech engine;
+    private TextToSpeech engine;
 
     private TtsManager tts;
 
