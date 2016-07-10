@@ -12,8 +12,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
 
-class TTSManager {
+class TtsManager {
 
     private final static int SDK = Build.VERSION.SDK_INT;
 
@@ -38,7 +39,7 @@ class TTSManager {
         }
     };
 
-    public TTSManager(Context context, Spinner spinner) {
+    public TtsManager(Context context, Spinner spinner) {
         this.spinner = spinner;
         this.context = context;
         try {
@@ -48,12 +49,13 @@ class TTSManager {
         }
     }
 
-    public void shutDown() {
-        tts.shutdown();
+    public TtsManager(TextToSpeech tts) {
+        isLoaded = true;
+        this.tts = tts;
     }
 
-    public boolean isLoaded() {
-        return isLoaded;
+    public void shutDown() {
+        tts.shutdown();
     }
 
     public boolean say(String text, Locale locale) {

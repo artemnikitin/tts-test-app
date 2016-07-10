@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
 
     private EditText text;
 
-    private TTSManager tts;
+    private TtsManager tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
         setContentView(R.layout.activity_main);
 
         final Spinner langSelect = (Spinner) findViewById(R.id.spinner);
-        tts = new TTSManager(this, langSelect);
+        tts = new TtsManager(this, langSelect);
         text = (EditText) findViewById(R.id.input_text);
         Button speakNowButton = (Button) findViewById(R.id.speak_now);
         Button chooseFileButton = (Button) findViewById(R.id.choose_file);
