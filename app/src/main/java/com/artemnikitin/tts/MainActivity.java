@@ -40,10 +40,7 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
         setContentView(R.layout.activity_main);
 
         final Spinner langSelect = (Spinner) findViewById(R.id.spinner);
-
-        tts = new TTSManager();
-        tts.init(this, langSelect);
-
+        tts = new TTSManager(this, langSelect);
         text = (EditText) findViewById(R.id.input_text);
         Button speakNowButton = (Button) findViewById(R.id.speak_now);
         Button chooseFileButton = (Button) findViewById(R.id.choose_file);
@@ -81,20 +78,21 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 111 && resultCode == RESULT_OK) {
+        if (requestCode == 111 && resultCode == RESULT_OK && data != null) {
             String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
-            File file = new File(filePath);
-            String text = "";
-            try {
-                BufferedSource source = Okio.buffer(Okio.source(file));
-                text = source.readUtf8();
-                source.close();
-            } catch (IOException e) {
-                Log.d(TAG, "Can't process file " + file.getAbsolutePath());
-                Toast.makeText(getApplicationContext(), "Can't process file", Toast.LENGTH_SHORT)
-                        .show();
+            if (filePath != null) {
+                File file = new File(filePath);
+                String text = "";
+                try {
+                    BufferedSource source = Okio.buffer(Okio.source(file));
+                    text = source.readUtf8();
+                    source.close();
+                } catch (IOException e) {
+                    Log.d(TAG, "Can't process file " + file.getAbsolutePath());
+                    Toast.makeText(getApplicationContext(), "Can't process file", Toast.LENGTH_SHORT).show();
+                }
+                this.text.setText(text);
             }
-            this.text.setText(text);
         }
     }
 

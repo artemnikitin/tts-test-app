@@ -38,7 +38,7 @@ class TTSManager {
         }
     };
 
-    public void init(Context context, Spinner spinner) {
+    public TTSManager(Context context, Spinner spinner) {
         this.spinner = spinner;
         this.context = context;
         try {
@@ -52,7 +52,11 @@ class TTSManager {
         tts.shutdown();
     }
 
-    public void say(String text, Locale locale) {
+    public boolean isLoaded() {
+        return isLoaded;
+    }
+
+    public boolean say(String text, Locale locale) {
         if (isLoaded && text != null && locale != null) {
             int available = tts.isLanguageAvailable(locale);
             if (available >= TextToSpeech.LANG_AVAILABLE) {
@@ -63,11 +67,14 @@ class TTSManager {
                 } else {
                     tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
                 }
+                return true;
             } else {
                 Log.e(TAG, "Can't play text = " + text + " for locale = " + locale.toString());
+                return false;
             }
         } else {
             Log.e(TAG, "TTS Not Initialized");
+            return false;
         }
     }
 
