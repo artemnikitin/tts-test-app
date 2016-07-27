@@ -14,5 +14,5 @@ App is available on Google Play
 
 ### Test
 ```
-./gradlew clean test
+./gradlew clean testDebugUnitTest
 ```
