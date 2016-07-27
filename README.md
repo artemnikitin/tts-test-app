@@ -4,7 +4,8 @@ Text-to-speech test app for Android.
 
 It's recommended to use it on devices with Android 5 or higher, because in Android 5 (SDK 21) new API for obtaining list of supported languages by TTS engine was introduced.
 
-App is available in Google Play https://play.google.com/store/apps/details?id=com.artemnikitin.tts
+App is available in Google Play 
+<a href='https://play.google.com/store/apps/details?id=com.artemnikitin.tts&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
 ### Build
 ```
