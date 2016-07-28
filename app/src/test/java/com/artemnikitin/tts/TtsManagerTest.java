@@ -1,5 +1,7 @@
 package com.artemnikitin.tts;
 
+import android.speech.tts.TextToSpeech;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
-
-import android.speech.tts.TextToSpeech;
 
 import java.util.Locale;
 
