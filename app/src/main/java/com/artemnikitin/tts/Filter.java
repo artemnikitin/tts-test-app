@@ -28,13 +28,11 @@ class Filter {
         List<Locale> result = new ArrayList<>();
         for (Locale locale : locales) {
             if (type.equals(Type.SAMSUNG)) {
-                if (locale != null && locale.toString().contains("_")
-                        && locale.toString().length() == 11) {
+                if (locale != null && locale.toString().contains("_")) {
                     result.add(locale);
                 }
             }
-            if (locale != null && locale.toString().contains("_")
-                    && locale.toString().length() == 5) {
+            if (locale != null && locale.toString().contains("_")) {
                 result.add(locale);
             }
         }
