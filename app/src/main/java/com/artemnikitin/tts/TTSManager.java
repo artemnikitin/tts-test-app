@@ -81,7 +81,12 @@ class TtsManager {
 
     private ArrayAdapter<String> setListOfLanguages() {
         Locale[] supported = getSupportedLanguages();
-        Filter filter = new Filter(supported);
+        Filter filter;
+        if (Build.MANUFACTURER.toLowerCase().contains("samsung")) {
+            filter = new Filter(supported, Filter.Type.SAMSUNG);
+        } else {
+            filter = new Filter(supported, Filter.Type.GENERIC);
+        }
         return new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item,
                 filter.getListOfLocales());
     }
@@ -98,7 +103,8 @@ class TtsManager {
             List<Locale> result = new ArrayList<>();
             Locale[] locales = Locale.getAvailableLocales();
             for (Locale loc : locales) {
-                if (tts.isLanguageAvailable(loc) >= 0) {
+                if (!loc.toString().toLowerCase().contains("os")
+                        && tts.isLanguageAvailable(loc) >= 0) {
                     result.add(loc);
                 }
             }
