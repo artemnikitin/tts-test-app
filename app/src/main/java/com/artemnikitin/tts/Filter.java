@@ -8,6 +8,7 @@ import java.util.Locale;
 class Filter {
 
     private final Locale[] locales;
+
     private final Type type;
 
     public Filter(Locale[] locales, Type type) {

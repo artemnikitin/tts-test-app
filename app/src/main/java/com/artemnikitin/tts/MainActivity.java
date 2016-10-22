@@ -1,5 +1,8 @@
 package com.artemnikitin.tts;
 
+import com.nbsp.materialfilepicker.MaterialFilePicker;
+import com.nbsp.materialfilepicker.ui.FilePickerActivity;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,9 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.nbsp.materialfilepicker.MaterialFilePicker;
-import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -89,7 +89,8 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
                     source.close();
                 } catch (IOException e) {
                     Log.d(TAG, "Can't process file " + file.getAbsolutePath());
-                    Toast.makeText(getApplicationContext(), "Can't process file", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Can't process file",
+                            Toast.LENGTH_SHORT).show();
                 }
                 this.text.setText(text);
             }
