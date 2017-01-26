@@ -10,6 +10,7 @@ cache:
     - $HOME/.gradle/native
     - $HOME/.gradle/wrapper
     - $HOME/.m2/repository
+    - /usr/local/android-sdk
 
 android:
   components:
