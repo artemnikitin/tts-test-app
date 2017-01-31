@@ -7,5 +7,6 @@
     <string name="file">Choose file</string>
     <string name="locale">Choose locale</string>
     <string name="locale_placeholder">en_US</string>
+    <string name="system_language">System language:</string>
 
 </resources>

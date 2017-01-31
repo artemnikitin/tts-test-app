@@ -6,6 +6,31 @@
               android:orientation="vertical"
               android:padding="20dp">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/labelText_currentLanguage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/system_language"
+            android:layout_weight="0.35"
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/currentLanguageContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:gravity="center"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
     <EditText
             android:id="@+id/input_text"
             android:layout_width="match_parent"

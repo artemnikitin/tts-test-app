@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -34,6 +35,8 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
 
     private TtsManager tts;
 
+    private TextView systemLanguage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,11 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
         final Spinner langSelect = (Spinner) findViewById(R.id.spinner);
         tts = new TtsManager(this, langSelect);
         text = (EditText) findViewById(R.id.input_text);
+        systemLanguage = (TextView) findViewById(R.id.currentLanguageContainer);
         Button speakNowButton = (Button) findViewById(R.id.speak_now);
         Button chooseFileButton = (Button) findViewById(R.id.choose_file);
+
+        systemLanguage.setText(Locale.getDefault().getDisplayName() + "(" + Locale.getDefault().toString() + ")");
 
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
