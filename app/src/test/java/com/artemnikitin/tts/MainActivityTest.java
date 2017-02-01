@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
 import static org.robolectric.Shadows.shadowOf;
 
@@ -87,8 +86,8 @@ public class MainActivityTest {
 
     @Test
     public void textViewShowsSystemLanguage() {
-        assertEquals("Text View should show system language",
-                "English (United States) (en_US)", systemLanguage.getText());
+        assertEquals("Text View should show system language", "English (United States) (en_US)",
+                systemLanguage.getText());
     }
 
 }
