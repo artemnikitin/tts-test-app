@@ -16,11 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
 import static org.robolectric.Shadows.shadowOf;
 
@@ -38,6 +40,8 @@ public class MainActivityTest {
 
     private Button chooseFileButton;
 
+    private TextView systemLanguage;
+
     @Before
     public void setUp() {
         activity = Robolectric.setupActivity(MainActivity.class);
@@ -45,6 +49,7 @@ public class MainActivityTest {
         langList = (Spinner) activity.findViewById(R.id.spinner);
         speakNowButton = (Button) activity.findViewById(R.id.speak_now);
         chooseFileButton = (Button) activity.findViewById(R.id.choose_file);
+        systemLanguage = (TextView) activity.findViewById(R.id.currentLanguageContainer);
 
         List<String> list = new ArrayList<>();
         list.add("English (United States) (en_US)");
@@ -78,6 +83,12 @@ public class MainActivityTest {
         chooseFileButton.performClick();
         Intent next = shadowOf(activity).getNextStartedActivity();
         assertTrue("Without permissions file picker activity should start", next != null);
+    }
+
+    @Test
+    public void textViewShowsSystemLanguage() {
+        assertEquals("Text View should show system language",
+                "English (United States) (en_US)", systemLanguage.getText());
     }
 
 }

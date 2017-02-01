@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
         Button speakNowButton = (Button) findViewById(R.id.speak_now);
         Button chooseFileButton = (Button) findViewById(R.id.choose_file);
 
-        systemLanguage.setText(Locale.getDefault().getDisplayName() + "(" + Locale.getDefault().toString() + ")");
+        systemLanguage.setText(getSystemLanguage());
 
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +101,12 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
                 this.text.setText(text);
             }
         }
+    }
+
+    private String getSystemLanguage() {
+        String language = Locale.getDefault().getDisplayName();
+        String bcp47 = Locale.getDefault().toString();
+        return String.format("%s (%s)", language, bcp47);
     }
 
     private Locale processSelection(String text) {
