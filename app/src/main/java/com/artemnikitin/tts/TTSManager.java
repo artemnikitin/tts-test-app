@@ -81,12 +81,7 @@ class TtsManager {
 
     private ArrayAdapter<String> setListOfLanguages() {
         Locale[] supported = getSupportedLanguages();
-        Filter filter;
-        if (Build.MANUFACTURER.toLowerCase().contains("samsung")) {
-            filter = new Filter(supported, Filter.Type.SAMSUNG);
-        } else {
-            filter = new Filter(supported, Filter.Type.GENERIC);
-        }
+        Filter filter = new Filter(supported);
         return new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item,
                 filter.getListOfLocales());
     }

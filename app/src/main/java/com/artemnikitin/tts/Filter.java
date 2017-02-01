@@ -9,30 +9,22 @@ class Filter {
 
     private final Locale[] locales;
 
-    private final Type type;
-
-    public Filter(Locale[] locales, Type type) {
+    public Filter(Locale[] locales) {
         this.locales = locales;
-        this.type = type;
     }
 
     public List<String> getListOfLocales() {
-        List<String> res = processLocales(filter(locales, type));
+        List<String> res = processLocales(filter(locales));
         Collections.sort(res);
         return res;
     }
 
-    private Locale[] filter(Locale[] locales, Type type) {
+    private Locale[] filter(Locale[] locales) {
         if (locales == null) {
             return new Locale[0];
         }
         List<Locale> result = new ArrayList<>();
         for (Locale locale : locales) {
-            if (type.equals(Type.SAMSUNG)) {
-                if (locale != null && locale.toString().contains("_")) {
-                    result.add(locale);
-                }
-            }
             if (locale != null && locale.toString().contains("_")) {
                 result.add(locale);
             }
@@ -47,11 +39,6 @@ class Filter {
             result.add(loc.getDisplayName() + " (" + loc.toString() + ")");
         }
         return result;
-    }
-
-    public enum Type {
-        SAMSUNG,
-        GENERIC
     }
 
 }
