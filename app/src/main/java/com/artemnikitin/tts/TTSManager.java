@@ -23,25 +23,21 @@ class TtsManager {
 
     private boolean isLoaded = false;
 
-    private Spinner spinner;
-
     private Context context;
 
-    private final TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
-        @Override
-        public void onInit(int status) {
-            if (status == TextToSpeech.SUCCESS) {
-                tts.setLanguage(Locale.US);
-                isLoaded = true;
-                spinner.setAdapter(setListOfLanguages());
-            }
-        }
-    };
-
-    public TtsManager(Context context, Spinner spinner) {
-        this.spinner = spinner;
+    public TtsManager(Context context, final Spinner spinner) {
         this.context = context;
         try {
+            TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    if (status == TextToSpeech.SUCCESS) {
+                        tts.setLanguage(Locale.US);
+                        isLoaded = true;
+                        spinner.setAdapter(setListOfLanguages());
+                    }
+                }
+            };
             tts = new TextToSpeech(context, onInitListener);
         } catch (Exception e) {
             Log.e(TAG, Arrays.toString(e.getStackTrace()));
