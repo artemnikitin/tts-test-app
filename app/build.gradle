@@ -1,18 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
-
     defaultConfig {
         applicationId "com.artemnikitin.tts"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 6
         versionName "1.5"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     signingConfigs {
         release {
             storeFile file(System.getenv("KEYSTORE_PATH").toString())
@@ -21,7 +19,6 @@ android {
             keyPassword System.getenv("KEY_PASS")
         }
     }
-
     buildTypes {
         release {
             minifyEnabled true
@@ -30,7 +27,10 @@ android {
             signingConfig signingConfigs.release
         }
     }
+}
 
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
 }
 
 dependencies {
@@ -41,4 +41,6 @@ dependencies {
     testCompile "org.robolectric:robolectric:3.1.1"
     testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
     testCompile 'org.mockito:mockito-core:1.10.19'
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

@@ -40,13 +40,13 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Spinner langSelect = (Spinner) findViewById(R.id.spinner);
+        final Spinner langSelect = findViewById(R.id.spinner);
         tts = new TtsManager(this, langSelect);
-        text = (EditText) findViewById(R.id.input_text);
-        Button speakNowButton = (Button) findViewById(R.id.speak_now);
-        Button chooseFileButton = (Button) findViewById(R.id.choose_file);
+        text = findViewById(R.id.input_text);
+        Button speakNowButton = findViewById(R.id.speak_now);
+        Button chooseFileButton = findViewById(R.id.choose_file);
 
-        TextView systemLanguage = (TextView) findViewById(R.id.currentLanguageContainer);
+        TextView systemLanguage = findViewById(R.id.currentLanguageContainer);
         systemLanguage.setText(getSystemLanguage());
 
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +69,8 @@ public class MainActivity extends Activity implements OnRequestPermissionsResult
             public void onClick(View v) {
                 tts.say(text.getText().toString(),
                         processSelection(langSelect.getSelectedItem().toString()));
+                Toast.makeText(getApplicationContext(), "Speak: " + text.getText().toString(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
