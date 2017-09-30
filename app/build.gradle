@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.artemnikitin.tts"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 6
         versionName "1.5"
     }
@@ -35,7 +35,7 @@ android {
 
 dependencies {
     compile 'com.squareup.okio:okio:1.11.0'
-    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.nbsp:library:1.2'
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.1.1"
