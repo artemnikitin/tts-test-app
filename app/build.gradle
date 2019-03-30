@@ -36,7 +36,7 @@ configurations.all {
 dependencies {
     compile 'com.squareup.okio:okio:2.2.2'
     compile 'com.android.support:appcompat-v7:28.+'
-    compile 'com.nbsp:library:1.2'
+    compile 'com.nbsp:library:1.09'
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.1.1"
     testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
