@@ -34,7 +34,7 @@ configurations.all {
 }
 
 dependencies {
-    compile 'com.squareup.okio:okio:2.2.2'
+    compile 'com.squareup.okio:okio:2.9.0'
     compile 'com.android.support:appcompat-v7:28.+'
     compile 'com.nbsp:library:1.09'
     testCompile 'junit:junit:4.12'
